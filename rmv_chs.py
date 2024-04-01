@@ -1,20 +1,14 @@
-# Python script to remove "?: {" from each line in the input file
+"""
+Python script to remove 'n' characters from
+the end of each line in the input text file
+"""
+in_fp = './in_file.txt'  # input file path, replace with the path to your input file
+out_fp = './out_file.txt'  # replace with the desired output file path
 
-input_file_path = 'old_file.txt'  # Replace with the path to your input file
-output_file_path = 'new_file.txt'  # Replace with the desired output file path
-
-# with open(input_file_path, 'r') as infile, open(output_file_path, 'w') as outfile:
-#     for line in infile:
-#         # Remove "?: {" from each line
-#         modified_line = line.rstrip('?: {') + '\n'
-#         outfile.write(modified_line)
-
-# print(f'Transformation complete. Output written to {output_file_path}')
-
-with open(input_file_path, 'r') as infile, open(output_file_path, 'w') as outfile:
-    for line in infile:
+with open(in_fp, 'r') as in_file, open(out_fp, 'w') as out_file:
+    for line in in_file:
         # Remove the last 5 characters from each line
-        modified_line = line[:-5] + '\n'
-        outfile.write(modified_line)
+        mod_line = line[:-5] + '\n'
+        out_file.write(mod_line)
 
-print(f'Transformation complete. Output written to {output_file_path}')
+print(f'Transformation complete. Output written to {out_fp}')
