@@ -69,7 +69,7 @@ case $selected_command in
     ;;
   "Rebase")
     git switch "$selected_branch"
-    git git rebase origin/main
+    git rebase origin/main
     ;;
   "Squash")
     git switch "$selected_branch"
