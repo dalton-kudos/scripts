@@ -36,7 +36,7 @@ echo "Choose a $(git_color_text 'branch') to operate on:"
 selected_branch=$(get_branches)
 
 if [ "$selected_branch" = "EXIT" ]; then
-  gum spin --spinner.foreground 226 --title "$(gum style --foreground 226 --width 28 'EXITING BRANCH...')" -- sleep 2
+  gum spin --spinner.foreground 226 --title "$(gum style --foreground 226 'Exiting Branch Selection...')" -- sleep 2
   exit 0
 fi
 
@@ -47,7 +47,7 @@ echo "Choose a $(git_color_text "command"):"
 selected_command=$(choose_command)
 
 if [ "$selected_command" = "EXIT" ]; then
-  gum spin --spinner.foreground 226 --title "$(gum style --foreground 226 'EXITING COMMAND...')" -- sleep 2
+  gum spin --spinner.foreground 226 --title "$(gum style --foreground 226 'Exiting Command Selection...')" -- sleep 2
   exit 0
 fi
 
