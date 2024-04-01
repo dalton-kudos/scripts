@@ -6,6 +6,10 @@ git_color_text () {
   gum style --foreground 212 "$1"
 }
 
+note_color_text () {
+  gum style --foreground 226 "$1"
+}
+
 welcome_border () {
   gum style --width 30 --padding '1 3' --border double --border-foreground 212 "$1"
 }
@@ -17,7 +21,7 @@ get_branches () {
 }
 
 choose_command () {
-    command=$(echo "Delete Rebase Squash Switch EXIT" | tr " " "\n" | gum choose --cursor-prefix "[x] " --unselected-prefix "[ ] " --selected-prefix "[x] " --limit 0)
+    command=$(echo "Delete Fetch Rebase Squash SquashDate Switch EXIT" | tr " " "\n" | gum choose --cursor-prefix "[x] " --unselected-prefix "[ ] " --selected-prefix "[x] " --limit 0)
     echo "$command"
 }
 
@@ -44,6 +48,7 @@ echo ""
 echo "Selected branch: $(git_color_text $selected_branch)"
 echo ""
 echo "Choose a $(git_color_text "command"):"
+echo "$(note_color_text "NOTE"): Always $(note_color_text "Fetch") before $(note_color_text "Rebase") or $(note_color_text "Squash")"
 selected_command=$(choose_command)
 
 if [ "$selected_command" = "EXIT" ]; then
@@ -58,13 +63,21 @@ case $selected_command in
     git switch main
     git branch -D "$selected_branch"
     ;;
+  "Fetch")
+    git switch "$selected_branch"
+    git fetch origin main && git --no-pager diff --name-status HEAD..origin/main
+    ;;
   "Rebase")
     git switch "$selected_branch"
-    git pull --rebase origin main
+    git git rebase origin/main
     ;;
   "Squash")
     git switch "$selected_branch"
     git rebase -i origin/main
+    ;;
+  "SquashDate")
+    git switch "$selected_branch"
+    git rebase -i origin/main && git commit --amend --date="$(date -R)"
     ;;
   "Switch")
     git switch "$selected_branch"
